@@ -18,21 +18,28 @@
             <strong>Your Rating:</strong>
             <span class="badge text-warning bg-info text-dark">{{user_rating}}</span>
         </h5>
-        <form action="{{url_for('delete', id=movie.id)}}" method="post">
-            <button type="submit" class="btn btn-warning m-2">
-            Remove your rating
+        <button type="button" class="btn btn-outline-warning m-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+            Edit
+        </button>
+        <form action="{{url_for('delete', id=movie.id)}}" method="post" class="movie-form">
+            <button type="submit" class="btn btn-outline-danger m-2">
+                Remove
             </button>
         </form>
         {% else %}
         <button type="button" class="btn btn-warning m-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
             Rate this movie
         </button>
-
+        {% endif %}
         <div class="modal fade text-dark" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
             tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content border border-dark">
+                    {% if user_rating %}
+                    <form action="{{url_for('edit', id=movie.id)}}" method="post">
+                    {% else %}
                     <form action="{{url_for('add', id=movie.id)}}" method="post">
+                    {% endif %}
                         <div class="modal-header bg-warning">
                             <h1 class="modal-title fs-5" id="staticBackdropLabel">Rate this movie</h1>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -49,7 +56,6 @@
                 </div>
             </div>
         </div>
-        {% endif %}
     </div>
 </div>
 {% endblock content %}

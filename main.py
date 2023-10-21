@@ -3,6 +3,7 @@ from flask import Flask, flash, redirect, render_template, session, url_for, req
 from werkzeug.security import generate_password_hash, check_password_hash
 from db import db, db_init, Movie, User, UserMovie
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
+from sqlalchemy import desc
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'koi2938vur2987rvu2120i0cm3902m4u18437'
@@ -26,9 +27,10 @@ def load_user(user_id):
 @app.route('/')
 def home():
     if current_user.is_authenticated:
+        sorting = ''
         user_movies = db.session.query(Movie, UserMovie).\
             join(UserMovie, UserMovie.movie_id == Movie.id).\
-                filter(UserMovie.user_id == current_user.id).all()
+                filter(UserMovie.user_id == current_user.id).order_by()
     else:
         flash('You must be logged in to view your collection.', 'warning')
         user_movies = []
@@ -52,6 +54,16 @@ def add(id):
 def delete(id):
     movie = UserMovie.query.filter_by(user_id=current_user.id, movie_id=id).first()
     db.session.delete(movie)
+    db.session.commit()
+    return redirect(url_for('movie', id=id))
+
+@app.route('/edit/<int:id>/', methods=['POST'])
+def edit(id):
+    movie = UserMovie.query.filter_by(user_id=current_user.id, movie_id=id).first()
+    db.session.delete(movie)
+    db.session.commit()
+    new_movie = UserMovie(user_id=current_user.id, movie_id=id, rating=request.form.get('rating'))
+    db.session.add(new_movie)
     db.session.commit()
     return redirect(url_for('movie', id=id))
 

@@ -87,3 +87,6 @@ input[type=range]:focus::-ms-fill-upper {
     max-width: 120px;
   }
 }
+.movie-form{
+  display: inline-block;
+}
