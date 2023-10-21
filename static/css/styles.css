@@ -16,7 +16,6 @@ ul {
     border-top-left-radius: 0.5rem;
     border-top-right-radius: 0.5rem;
 }
-
 @media (min-width: 992px) {
     .rounded-tr-lg-0 {
     border-top-right-radius: 0;
@@ -25,6 +24,7 @@ ul {
     .rounded-bl-lg-5 {
     border-bottom-left-radius: 0.5rem;
     }
+
 }
 .dropdown-menu{
     width: 220px;
@@ -77,4 +77,13 @@ input[type=range]:focus::-ms-fill-lower {
 }
 input[type=range]:focus::-ms-fill-upper {
   background: #FFC107;
+}
+.watchlist-item{
+  max-width: 180px;
+  cursor: pointer;
+}
+@media (max-width: 768px) {
+  .watchlist-item{
+    max-width: 120px;
+  }
 }

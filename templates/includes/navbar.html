@@ -53,11 +53,17 @@
                         <ul class="dropdown-menu dropdown-menu-light live-search-list show" id="liveSearchResults"
                             hidden="true">
                             {% for movie in movies %}
-                            {% if movie.title|length > 35 %}
-                            <li><a class="dropdown-item"
-                                    href="{{url_for('movie', id=movie.id)}}">{{movie.title[:35]}}...</a></li>
+                            {% if movie.title|length > 25 %}
+                            <li>
+                                <a class="dropdown-item"
+                                    href="{{url_for('movie', id=movie.id)}}">{{movie.title[:25]}}...({{movie.year}})
+                                </a>
+                            </li>
                             {% else %}
-                            <li><a class="dropdown-item" href="{{url_for('movie', id=movie.id)}}">{{movie.title}}</a>
+                            <li>
+                                <a class="dropdown-item" href="{{url_for('movie', id=movie.id)}}">
+                                    {{movie.title}} ({{movie.year}})
+                                </a>
                             </li>
                             {% endif %}
                             {% endfor %}
