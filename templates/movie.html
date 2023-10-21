@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>{{ movie.title }}</h1>
+<br>
+<div class="row">
+    <div class="col-4">
+        <img src="/{{ movie.image }}" alt="{{ movie.title }}" class="rounded img-fluid">
+    </div>
+    <div class="col">
+        <p>{{ movie.description }}</p>
+        <h5><strong>Director(s):</strong> <span class="text-warning">{{ movie.directors }}</span></h5>
+        <h5><strong>Genre(s):</strong> <span class="text-warning">{{ movie.genres }}</h5>
+        <h5><strong>Release Year:</strong> <span class="text-warning">{{ movie.year }}</h5>
+        <h5><strong>IMDb Rating:</strong> <span class="badge bg-warning text-dark">{{movie.imdb_rating}}</span></h5>
+        {% if user_rating %}
+        <h5>
+            <strong>Your Rating:</strong>
+            <span class="badge text-warning bg-info text-dark">{{user_rating}}</span>
+        </h5>
+        <form action="{{url_for('delete', id=movie.id)}}" method="post">
+            <button type="submit" class="btn btn-warning m-2">
+            Remove your rating
+            </button>
+        </form>
+        {% else %}
+        <button type="button" class="btn btn-warning m-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+            Rate this movie
+        </button>
+
+        <div class="modal fade text-dark" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
+            tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content border border-dark">
+                    <form action="{{url_for('add', id=movie.id)}}" method="post">
+                        <div class="modal-header bg-warning">
+                            <h1 class="modal-title fs-5" id="staticBackdropLabel">Rate this movie</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <h1 class="text-center" id="currentValue">0</h1>
+                            <input type="range" oninput="myFunction(this.value)" value="1" min="1" max="10" step="1"
+                                class="custom-input" name="rating">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-warning">Rate</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock content %}

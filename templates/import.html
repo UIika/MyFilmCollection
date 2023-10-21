@@ -1,0 +1,12 @@
+{% for msg in get_flashed_messages() %}
+<div class="alert alert-danger" role="alert">{{msg}}</div>
+{% endfor %}
+
+<button id="showFormButton" class="btn btn-warning">Import your watchlist</button>
+
+<form id="importForm" method=post enctype=multipart/form-data style="display: none;">
+    <div class="mb-3">
+        <input class="form-control mt-3" type="file" id="formFile" name="file">
+    </div>
+    <button type="submit" class="btn btn-warning">Upload</button>
+</form>

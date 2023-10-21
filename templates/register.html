@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<form action="signup" method="post">
+    <div class="row justify-content-center">
+
+        <div>
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-danger" role="alert">
+                {{ message }}
+            </div>
+            {% endfor %}
+            {% endif %}
+            {% endwith %}
+        </div>
+
+        <div class="col-md-10 col-lg-6">
+
+            <p class="text-center h1 fw-bold m-2 mb-5">Sign up</p>
+
+                <div class="mb-1">
+                    <div class="form-outline flex-fill mb-0">
+                        <input type="text" id="form3Example1c" class="form-control" name="name">
+                        <label class="form-label" for="form3Example1c">Username</label>
+                    </div>
+                </div>
+
+                <div class="mb-1">
+                    <div class="form-outline flex-fill mb-0">
+                        <input type="email" id="form3Example3c" class="form-control" name="email">
+                        <label class="form-label" for="form3Example3c">Email</label>
+                    </div>
+                </div>
+
+                <div class="mb-1">
+                    <div class="form-outline flex-fill mb-0">
+                        <input type="password" id="form3Example4c" class="form-control" name="password1">
+                        <label class="form-label" for="form3Example4c">Password</label>
+                    </div>
+                </div>
+
+                <div class="mb-1">
+                    <div class="form-outline flex-fill mb-0">
+                        <input type="password" id="form3Example4cd" class="form-control" name="password2">
+                        <label class="form-label" for="form3Example4cd">Repeat your password</label>
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
+                    <button type="submit" class="btn btn-warning btn-lg">Register</button>
+                </div>
+        </div>
+</form>
+
+{% endblock content %}
